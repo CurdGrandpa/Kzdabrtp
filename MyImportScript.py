@@ -22,7 +22,7 @@ def import_products():
             try:
                 product = Product.objects.get(inner_code=row[0])        # Чекает, есть ли уже такой продукт (продукт с таким внутренним номером)
             except:                                                     # Если продукта с таким внутренним номером нет
-                product = Product(inner_code=row[0])
+                product = Product(inner_code=row[0])                    # Создаётся новый
 
             try:
                 # if not product.block_image_update:							#Если Изменение фотографии при апдейте не заблокированно
@@ -40,7 +40,7 @@ def import_products():
                 product.url = row[0]
                 if row[5] != "NULL":
                     product.description = row[5]
-                product.category = Category.objects.get(name=row[1])
+                product.category = Category.objects.get(name=row[1])        # Вот здесь осторожно
                 product.image = "static/img/products/imported/" + row[6]
                 product.name = row[4].split(', ')[0]
                 product.save()

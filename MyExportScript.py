@@ -1,15 +1,18 @@
-def export_product():
+def test_export_product():
     import openpyxl
-    myData = [["first_name", "second_name", "Grade"],
-    ['Alex', 'Brian', 'A'],
-    ['Tom', 'Smith', 'B']]
-
     book = openpyxl.Workbook()
     sheet = book.active
-
-    for i in range(1, 4):
-        for j in range(1, 4):
-            sheet.cell(row=i, column=j, value=myData[i-1][j-1])
+    i = j = 1
+    for var in vars(Products).keys():
+        sheet.cell(row=i, column=j, value=var)
+        j += 1
+    myData = Products.objects.all()
+    for product in myData:
+        i += 1
+        j = 1
+        for var in vars(product).values():
+            sheet.cell(row=i, column=j, value=var)
+            j += 1
 
     book.save("ProductsData.xlsx")
 
